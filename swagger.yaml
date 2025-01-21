@@ -1,13 +1,25 @@
 openapi: 3.0.0
 info:
   title: API Documentation
+  description: API Documentation for the application
   version: 1.0.0
+servers:
+  - url: http://localhost:8086
+    description: Local server
 paths:
+  /:
+    get:
+      summary: Server Status
+      description: Check if the server is running
+      responses:
+        '200':
+          description: Server Running
   /api/v1/login:
     post:
       summary: Login
-      description: Login
+      description: Login to the application
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -18,18 +30,18 @@ paths:
                 password:
                   type: string
       responses:
-        200:
+        '200':
           description: Login successful
-        422:
+        '422':
           description: User Not Registered
-        500:
-          description: Error
-
+        '500':
+          description: Internal Server Error
   /api/v1/signup:
     post:
       summary: Signup
-      description: Signup
+      description: Register a new user
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -42,9 +54,179 @@ paths:
                 password:
                   type: string
       responses:
-        200:
+        '200':
           description: Signup successful
-        422:
-          description: Email is already registered
-        500:
-          description: Error
+        '422':
+          description: Email already registered
+        '500':
+          description: Internal Server Error
+  /api/v1/users:
+    post:
+      summary: Create User
+      description: Add a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User created
+    get:
+      summary: Get Users
+      description: Retrieve all users
+      responses:
+        '200':
+          description: User list retrieved
+    put:
+      summary: Update User
+      description: Update user details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User updated
+    delete:
+      summary: Delete User
+      description: Remove a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+      responses:
+        '200':
+          description: User deleted
+  /api/v1/user/{userId}:
+    get:
+      summary: Get User by ID
+      description: Retrieve a single user by their ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User details retrieved
+  /api/v1/validate-token:
+    get:
+      summary: Validate Token
+      description: Validate the provided access token
+      responses:
+        '200':
+          description: Token is valid
+  /api/v1/labo:
+    post:
+      summary: Create Labo
+      description: Add a new labo
+      responses:
+        '200':
+          description: Labo created
+    get:
+      summary: Get Labos
+      description: Retrieve all labos
+      responses:
+        '200':
+          description: Labo list retrieved
+    put:
+      summary: Update Labo
+      description: Update labo details
+      responses:
+        '200':
+          description: Labo updated
+    delete:
+      summary: Delete Labo
+      description: Remove a labo
+      responses:
+        '200':
+          description: Labo deleted
+  /api/v1/labo/{codeNo}:
+    get:
+      summary: Get Labo by CodeNo
+      description: Retrieve a labo by its CodeNo
+      parameters:
+        - name: codeNo
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Labo details retrieved
+  /api/v1/labo/clinic/{clinic}:
+    get:
+      summary: Get Labos by Clinic
+      description: Retrieve labos by clinic name
+      parameters:
+        - name: clinic
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Labo list retrieved
+  /api/v1/labo/labo-name/{laboName}:
+    get:
+      summary: Get Labos by Labo Name
+      description: Retrieve labos by labo name
+      parameters:
+        - name: laboName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Labo list retrieved
+  /api/v1/labo/position/{position}:
+    get:
+      summary: Get Labos by Position
+      description: Retrieve labos by position
+      parameters:
+        - name: position
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Labo list retrieved
+  /api/v1/labo/fullname/{fullName}:
+    get:
+      summary: Get Labos by Full Name
+      description: Retrieve labos by full name
+      parameters:
+        - name: fullName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Labo list retrieved

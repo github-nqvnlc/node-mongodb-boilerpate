@@ -1,4 +1,5 @@
 const Labo = require('../models/Labo');
+const Utilities = require('../Utilities'); // Adjust the path as necessary
 
 class LaboController {
     async createLabo(req, res) {

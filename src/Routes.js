@@ -1,10 +1,15 @@
 const Utilities = require('./Utilities');
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
 const Route = express.Router();
 
 const AuthController = require('./controllers/AuthController');
 const LaboController = require('./controllers/LaboController');
 const CrudController = require('./controllers/CrudController');
+
+Route.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 Route.route('/').get((req, res) =>
     Utilities.apiResponse(res, 200, 'Server Running'),
